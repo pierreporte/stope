@@ -1,0 +1,355 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="STOPE (Simple Tool for Orbital Parameters Extraction) User Manual" />
+        <meta name="author" content="Thomas Duchesne" />
+        <title>STOPE User Manual</title>
+        <style>
+            html {
+                background: #336699;
+            }
+            body {
+                max-width: 60rem;
+                margin: 1rem auto;
+                padding: 1em;
+                font-size: 12pt;
+                counter-reset: title2;
+                border: 5pt solid #FFCC66;
+                border-right: 5pt solid #FFCC66;
+                border-left: 5pt solid #FFCC66;
+                border-radius: 5pt;
+                background: white;
+                font-family: "Cambria", serif;
+            }
+            img {
+                max-width: 100%;
+            }
+            math {
+                font-family: "Cambria", serif;
+            }
+            nav {
+                display: block;
+                margin:1rem rem;
+                background: #FFCC66;
+                border: 2pt solid #336699;
+            }
+            figure {
+                text-align: center;
+            }
+            figure img {
+                display: block;
+                margin: auto;
+            }
+            pre, code {
+                font-family: "Consolas", monospace;
+            }
+            pre {
+                background: #EEEEEE;
+                border: 1pt solid #888888;
+                padding: 0.5rem;
+                font-size: small;
+            }
+            p {
+                text-align: justify;
+                hyphens: auto;
+                margin: 1ex auto;
+            }
+            h1 {
+                font-family: "Cambria", serif;
+                font-size: 48pt;
+                font-weight: bold;
+                font-style: italic;
+                background:  #336699;
+                color: #FFCC66;
+                border: 2pt solid #003366;
+                border-radius: 2pt;
+                text-align: center;
+                margin: 1.5rem 0 1rem 0;
+            }
+            h1:first-child {
+                margin-top: 0;
+            }
+            h2, h3 {
+                font-family: "Helvetica", "Arial", sans-serif;
+                font-size: 16pt;
+                font-weight: bold;
+                color: #003366;
+            }
+            h2 {
+                text-transform: uppercase;
+                letter-spacing: 2pt;
+                /*border-bottom: 2pt solid #336699;*/
+                border-top: 1pt solid #336699;
+                border-right: 1pt solid #336699;
+                margin-top: 3rem;
+            }
+            h3 {
+                /*border-bottom: 2pt dashed #336699;*/
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+            }
+            h2:before {
+                counter-reset: title3;
+                counter-increment: title2;
+                display: inline-block;
+                content: counter(title2) ". ";
+                width: 3em;
+                color: #336699;
+            }
+            h3:before {
+                counter-increment: title3;
+                display: inline-block;
+                content: counter(title2) "." counter(title3) ". ";
+                width: 3em;
+                color: #336699;
+            }
+            span.button, kbd {
+                background: #EEEEEE;
+                border: 1pt solid #888888;
+                border-bottom: 2pt solid #888888;
+                border-right: 2pt solid #888888;
+                border-radius: 0.25em;
+                padding: 0.25ex 1ex;
+                font-family: sans-serif;
+                font-size: small;
+            }
+            a {
+                color: #336699;
+                text-decoration: underline;
+            }
+            a:hover {
+                color: #003366;
+                text-decoration: none;
+            }
+            table {
+                width: 100%;
+            }
+            tr {
+                border: 1pt solid black;
+            }
+            .placeholder {
+                font-style: italic;
+            }
+            .placeholder:before {
+                content: "〈";
+                font-style: normal;
+            }
+            .placeholder:after {
+                content: "〉";
+                font-style: normal;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="title">STOPE 1.0 User Manual</h1>
+        <p><strong>STOPE</strong> (meaning <em>Simple Tool for Orbital Parameters Extraction</em>) was originally written during a ‘summer’ traineeship in order to automate the extraction of a <em>huge</em> amount of orbital parameters stored in <em>a lot</em> of files. Because it would have been impossible to do it manually for more than a few hundreds of times, this program became absolutely necessary. It is now available for everyone to whom will find it useful for anything.</p>
+        <p>Although STOPE is very easy to use, it wouldn’t be a waste of time to read this manual to learn how the program acts and how to perfectly interact with it.</p>
+        <p>For STOPE is a free software (free as in freedom, yet free of charge by the way), everyone is permitted to modify it (<a href="#license">see the license below</a>.)</p>
+        <nav>
+            <ol>
+                <li><a href="#user-interface">The user interface</a>
+                    <ol>
+                        <li><a href="#graphical-user-interface">The graphical user interface</a></li>
+                        <li><a href="#command-line-interface">The command line interface</a></li>
+                    </ol>
+                </li>
+                <li><a href="#tle-file-format">TLE files format</a></li>
+                <li><a href="#output-files-format">The output file format</a></li>
+                <li><a href="#read-the-log-file">How and whrere to read the log file</a></li>
+            </ol>
+        </nav>
+        <h2 id="user-interface">The user interface</h2>
+        <h3 id="graphical-user-interface">The graphical user interface</h3>
+        <p>The STOPE user interface is very simple and consist in barely one window (figure below). There, you type the international designator of the satellite of which you want the orbital parameters, then you select whrere the extracted data will be save, and finally you select the TLE files where the program will seek your satellite recordings before clicking on <span class="button">Run the extraction</span>.</p>
+        <p>Files selections is made using standard dialog boxes.</p>
+        <figure>
+            <img src="./stope_main_window.png" alt="STOPE screenshot" />
+            <figcaption>The STOPE user interface on Microsoft Windows 7</figcaption>
+        </figure>
+        <p>Files selection is also available through the ‘File’ menu.</p>
+        <p>The ‘Help’ menu gives you the opportunity to read this manual and to see the About dialog box that recaps some useful information such as the version of STOPE.</p>
+        <h3 id="command-line-interface">The command line interface</h3>
+        <p>This is useful for debuging purposes. You can’t use STOPE directly in a terminal yet, so using the command line interface still opens the window.</p>
+        <p>Here are the only three command line options:</p>
+        <dl>
+            <dt><code>--debug</code></dt>
+            <dd>Enables the debug mode.</dd>
+            <dt><code>--version</code></dt>
+            <dd>Shows the version of STOPE you are running.</dd>
+            <dt><code>--help</code> or <code>-h</code></dt>
+            <dd>Displays a little help on the command line interface.</dd>
+        </dl>
+        <h2>Getting started</h2>
+        <p>Here are the steps you will have to follow:</p>
+        <ol>
+            <li>
+                Enter the international designator (COSPAR) of the satellite.
+                <ul>
+                    <li>The international designator must be written in this form: <code>YYLLLXXX</code> where <code>YY</code> is the last two digits of the year, <code>LLL</code> the launch number (on three digits) and <code>XXX</code> the payload designation (on one, two or three letters).</li>
+                    <li>Trailing space is ignored</li>
+                    <li>Using lowercase or uppercase letter doesn’t matter</li>
+                </ul>
+            </li>
+            <li>Select where the extracted data will be saved.
+                <ul>
+                    <li>Click on <span class="button">Select file</span>.</li>
+                    <li>The path is displayed in the box. You can select the text in order to copy it somewhere.</li>
+                    <li>STOPE save data in the CSV format.</li>
+                    <li>If you want a file extension, add it manually.</li>
+                </ul>
+            </li>
+            <li>Select the TLE files
+                <ul>
+                    <li>Click on <span class="button">Add files</span>.</li>
+                    <li>You can select multiple files at once.</li>
+                    <li>You can choose any directory.</li>
+                    <li><em>Be sure that your files are formatted like <a href="#tle-files-format">described below</a>!</em></li>
+                    <li>If you want to remove files from the list, select them and click on <span class="button">Delete selected files</span>.</li>
+                </ul>
+            <li>Click on <span class="button">Run the extraction</span>.
+                <ul>
+                    <li>The program won’t answer until the extraction is finished.</li>
+                    <li>When the extraction is finished, check the log file where the program tells you where to find it (<a href="#read-the-log-file">see below</a>).</li>
+                </ul>
+            </li>
+        </ol>
+        <h2 id="tle-files-format">The TLE files format</h2>
+        <p>Let’s start with the good example. Here is the begining of a well formatted file:</p>
+        <pre>1 00005U 58002B   14001.18782563  .00000040  00000-0  40921-4 0  1802
+2 00005 034.2515 294.1619 1849340 178.4613 182.2758 10.84381573949160
+1 00011U 59001A   14001.49929578  .00000254  00000-0  11590-3 0   627
+2 00011 032.8774 265.3546 1476296 264.4994 078.6020 11.84019141336756
+1 00012U 59001B   14001.15043527  .00000935  00000-0  54042-3 0  7398
+2 00012 032.9115 320.5248 1673017 279.4922 062.1207 11.42639539252314
+1 00020U 59007A   14001.83882175  .00002205  00000-0  91941-3 0  3935
+2 00020 033.3439 296.6539 1676966 006.9590 355.1490 11.53146432957838
+1 00022U 59009A   14001.20917130  .00004719  00000-0  42850-3 0  7942
+2 00022 050.2869 339.0260 0157841 271.6958 209.2079 14.87948800872783
+1 00029U 60002B   14001.71158113  .00000289  00000-0  75941-4 0  1083
+2 00029 048.3790 273.9320 0025081 227.0022 132.8787 14.72896378870692
+1 00046U 60007B   14001.20223528  .00000591  00000-0  14621-3 0  5384
+2 00046 066.6929 296.1912 0208400 088.4767 274.0200 14.47318234797346</pre>
+        <p>As you can see, the TLEs must be written from the very first line of the file, with no blank lines before or after. This is the format used by <a href="https://www.space-track.org/" title="Space-Track.Org">Space-Track</a>, so it is quite common.<p>
+        <h2 id="output-file-format">The output file format</h2>
+        <p>The extracted data are stored in a CSV file. It is formatted in the most standard way. That is, each column is separated with a comma, the first row contains the column titles and the decimal separator is the dot (full stop). Since the TLE contains a date information, it is converted in a convenient full-numerical form: <code>YYYY-MM-DD hh:mm:ss</code>, where <code>YYYY</code> is the year, <code>MM</code> the month, <code>DD</code> the day, <code>hh</code> the hour, <code>mm</code> the minute and <code>ss</code> the second.</p>
+        <p>Here is an example of CSV file created by STOPE:</p>
+        <pre>international_designator,epoch_time,mean_motion_dot_dot,mean_motion_dot,agom,ephemeris_type,element_number,inclination,eccentricity,argument_of_perigee,mean_anomaly,mean_motion,epoch_rev
+98067A,2014-01-01 2:35:51,0.0,8.564e-05,0.0001574,0,367,51.6491,0.0004778,338.2618,164.5012,15.50082944,86540
+98067A,2014-01-01 6:34:27,0.0,8.565e-05,0.0001574,0,368,51.6491,0.0004778,338.8852,9.1247,15.50085938,86542
+98067A,2014-01-01 10:1:9,0.0,8.531e-05,0.0001568,0,369,51.6488,0.0004876,340.4639,89.0593,15.50088337,86545
+98067A,2014-01-01 14:39:48,0.0,8.534e-05,0.00015682,0,370,51.6486,0.0004928,341.4189,88.6312,15.50091814,86548
+98067A,2014-01-01 14:39:48,0.0,8.534e-05,0.00015682,0,371,51.6486,0.0004928,341.4189,88.6312,15.50091814,86548
+98067A,2014-01-01 17:53:9,0.0,8.529e-05,0.00015672,0,372,51.6489,0.0004954,341.9993,117.8373,15.50094135,86550
+98067A,2014-01-01 22:26:58,0.0,8.648e-05,0.00015878,0,373,51.6487,0.0004856,342.0055,99.6245,15.50098,86553
+98067A,2014-01-02 5:44:19,0.0,8.635e-05,0.00015853,0,374,51.649,0.0004905,342.5484,355.0773,15.50103469,86557
+98067A,2014-01-02 7:19:3,0.0,8.623e-05,0.0001583,0,375,51.649,0.000492,343.295,1.6891,15.50104582,86558</pre>
+        <p>Please note that you data processing software may not manage the data stored in the CSV file the optimal way. For example, Microsoft Excel does not go beyond the minute in the dates.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Abbrev.</th>
+                    <th>Signification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>cospar</td>
+                    <td>International or COSPAR designator / NSSDC ID</td>
+                </tr>
+                <tr>
+                    <td>epoch</td>
+                    <td>Epoch time</td>
+                </tr>
+                <tr>
+                    <td>mmotdd</td>
+                    <td>Mean motion second derivative</td>
+                </tr>
+                <tr>
+                    <td>mmotd</td>
+                    <td>Mean motion derivative</td>
+                </tr>
+                <tr>
+                    <td>bstar</td>
+                    <td>dd</td>
+                </tr>
+                <tr>
+                    <td>ephtype</td>
+                    <td>Ephemeris type</td>
+                </tr>
+                <tr>
+                    <td>eltnum</td>
+                    <td>Element number</td>
+                </tr>
+                <tr>
+                    <td>inclin</td>
+                    <td>Inclination</td>
+                </tr>
+                <tr>
+                    <td>raan</td>
+                    <td>Right ascension of ascending node</td>
+                </tr>
+                <tr>
+                    <td>eccentr</td>
+                    <td>Eccentricity</td>
+                </tr>
+                <tr>
+                    <td>argofper</td>
+                    <td>Argument of perigee</td>
+                </tr>
+                <tr>
+                    <td>manomaly</td>
+                    <td>Mean anomaly</td>
+                </tr>
+                <tr>
+                    <td>mmot</td>
+                    <td>Mean motion</td>
+                </tr>
+                <tr>
+                    <td>epochrev</td>
+                    <td>Epoch revolution</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 id="read-the-log-file">How and where to read the log file</h2>
+        <p>The log file is at least the second most useful file produced by STOPE. The program won’t tell you directly if there was a problem during the data extracrion, or even if it was able to to something. Everything is written in the log file, so you have to know where the log file is saved. It is always told by the program when the extraction is finished, but normally it dwells in your ‘home’ directory (<code>~</code> or <code>/home/(username)</code> under Linux, <code>C:\Users\(your name)</code> under Windows).</p>
+        <p><strong>Never use the extracted data before reading it.</strong></p>
+        <p>When a problem is encountered, it is clearly told whrere it happened and why.</p>
+        <p>Here is an example of normal log file, with no errors and one TLE file:</p>
+        <pre>[INFO] Opening C:/Users/DUCHESNE Thomas/Documents/tleextract/2014_001.txt
+[INFO] Wrote C:/Users/DUCHESNE Thomas/Documents/tleextract/test.csv.</pre>
+        <p>In debug mode, each step is described with a <code>[DEBUG]</code> entry.</p>
+        <p>Now let’s see what happens when we give a wrong TLE file (begining of the log file):</p>
+        <pre>[INFO] Opening C:/Users/DUCHESNE Thomas/Documents/tleextract/gpl-3.0.txt
+[ERROR] Format of lines 0 and 1 is not correct. Skipping...
+[ERROR] Format of lines 2 and 3 is not correct. Skipping...
+[ERROR] Format of lines 4 and 5 is not correct. Skipping...
+[ERROR] Format of lines 6 and 7 is not correct. Skipping...
+[ERROR] Format of lines 8 and 9 is not correct. Skipping...
+[ERROR] Format of lines 10 and 11 is not correct. Skipping...
+[ERROR] Format of lines 12 and 13 is not correct. Skipping...</pre>
+        <h3>Informational messages</h3>
+        <dl>
+            <dt><code>[INFO] Extracting data for <span class="placeholder">international designator</span>.</code></dt>
+            <dd>Informs you tha the extraction begins. It might appear useless, but the extraction log file is cleared only for new instances of STOPE. So this can help you to spot where each extraction begins.</dd>
+            <dt><code>[INFO] Wrote <var>csv file</var>.</code></dt>
+            <dd>Data were extracted and written in the CSV file specified before the extraction.</dd>
+            <dt><code>[WARNING] There was no data extracted. <span class="placeholder">csv file</span> won't be created.</code></dt>
+            <dd>The input files do not contain any valid data.</dd>
+        </dl>
+        <h3>Error messages</h3>
+        <dl>
+            <dt><code>[ERROR] In <span class="placeholder">file</span>, lines <math class="placeholder"><mi>i</mi></math> and <math class="placeholder"><mi>i</mi><mo>+</mo><mi>1</mi></math>: bad format.</code></dt>
+            <dd>The lines <math class="placeholder"><mi>i</mi></math> and <math class="placeholder"><mi>i</mi><mo>+</mo><mi>1</mi></math> in the file does not correspond to the TLE standard.</dd>
+            <dt><code>[ERROR] In <span class="placeholder">file</span>, line <math><mi>i</mi></math>: checksum verification failed.</code></dt>
+            <dd>The TLE data seems corrupted.</dd>
+            <dt><code>[ERROR] Different satellite number for lines <math class="placeholder"><mi>i</mi></math> and <math class="placeholder"><mi>i</mi><mo>+</mo><mi>1</mi></math>.</code></dt>
+            <dd>The two TLE lines does not belong to the same satellite.</dd>
+        </dl>
+        <h1 id="license">License</h1>
+        <p>Copyright © 2014 Centre Spatial Universitaire, University of Montpellier 2</p>
+        <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+        <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+        <p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+    </body>
+</html>
