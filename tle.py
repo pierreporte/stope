@@ -57,7 +57,7 @@ def check_format(line1, line2):
     # The regular expressions matches the TLE format from the begining of the
     # lines, that is, all the characters after the 69th character will be
     # ignored and do not count for the format nor the conversion.
-    tle_format = ("^1 \d\d\d\d\d[U ] \d\d\d\d\d([A-Z]  |[A-Z][A-Z] |[A-Z][A-Z][A-Z]) \d\d\d\d\d\.\d\d\d\d\d\d\d\d [\+\- ]\.\d\d\d\d\d\d\d\d [\+\- ]\d\d\d\d\d[+-]\d [\+\- ]\d\d\d\d\d[\+\-]\d \d (\d\d\d\d| \d\d\d|  \d\d|   \d)\d", "^2 \d\d\d\d\d \d\d\d\.\d\d\d\d \d\d\d\.\d\d\d\d \d\d\d\d\d\d\d \d\d\d\.\d\d\d\d \d\d\d.\d\d\d\d \d\d\.\d\d\d\d\d\d\d\d(\d\d\d\d\d| \d\d\d\d|  \d\d\d|   \d\d|    \d)\d")
+    tle_format = ("^1 \d\d\d\d\d[U ] \d\d\d\d\d([A-Z]  |[A-Z][A-Z] |[A-Z][A-Z][A-Z]) \d\d\d\d\d\.\d\d\d\d\d\d\d\d [\+\- ]\.\d\d\d\d\d\d\d\d [\+\- ]\d\d\d\d\d[+-]\d [\+\- ]\d\d\d\d\d[\+\-]\d \d (\d\d\d\d| \d\d\d|  \d\d|   \d)\d", "^2 \d\d\d\d\d (\d\d\d| \d\d|  \d)\.\d\d\d\d (\d\d\d| \d\d|  \d)\.\d\d\d\d \d\d\d\d\d\d\d (\d\d\d| \d\d|  \d)\.\d\d\d\d (\d\d\d| \d\d|  \d).\d\d\d\d \d\d\.\d\d\d\d\d\d\d\d(\d\d\d\d\d| \d\d\d\d|  \d\d\d|   \d\d|    \d)\d")
     
     tle_regex = (re.compile(tle_format[0], re.ASCII), re.compile(tle_format[1], re.ASCII))
     
